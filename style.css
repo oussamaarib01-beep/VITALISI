@@ -1,0 +1,52 @@
+/* Astronaut Health Monitor — shared styles. Screen styles are inline, copied from the design file. */
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('assets/fonts/roboto-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-style: normal; font-weight: 100 700; font-display: swap; src: url('assets/fonts/roboto-mono-latin.woff2') format('woff2'); }
+
+html, body { margin: 0; padding: 0; background: #030B17; }
+body { font-family: Roboto, system-ui, sans-serif; color: #EAF6FF; -webkit-font-smoothing: antialiased; }
+a { color: #00D4FF; } a:hover { color: #7FE9FF; }
+button { font-family: inherit; }
+input::placeholder, textarea::placeholder { color: #7FA3BC; opacity: 1; }
+input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible { outline: 2px solid #00D4FF; outline-offset: 2px; }
+
+.space { background: #030B17 url('assets/img/space-bg.jpg') center/cover no-repeat; background-attachment: fixed; }
+.space-top { background: #030B17 url('assets/img/space-bg.jpg') center top/cover no-repeat; background-attachment: fixed; }
+.loginbg { background: #030B17 url('assets/img/login-bg.jpg') center/cover no-repeat; }
+.loginbg input::placeholder { color: #E6F4FF; opacity: 1; text-align: center; }
+.night { background: #020812 url('assets/img/sleep-bg.jpg') center/cover no-repeat; }
+.red { background: radial-gradient(ellipse at 50% 0%, rgba(232,40,63,.45) 0%, rgba(90,10,25,.6) 35%, #12030A 75%), #12030A; }
+.red a { color: #FFB3BC; }
+.tile:hover { border-color: rgba(0,212,255,.7) !important; background: rgba(10,52,88,.8) !important; }
+.records td, .records th { padding: 12px 14px; text-align: left; border-bottom: 1px solid rgba(0,212,255,.12); vertical-align: top; }
+.records th { color: #9DBAD0; font-size: 13px; font-weight: 500; }
+.clickable { cursor: pointer; }
+.hidden-keep { visibility: hidden; }
+select option { background: #06375C; color: #EAF6FF; }
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: '▸'; display: inline-block; width: 16px; color: #00D4FF; transition: transform .15s; }
+details[open] > summary::before { transform: rotate(90deg); }
+
+/* alarm light on the emergency screen */
+@keyframes alarmPulse { 0%, 100% { box-shadow: inset 0 0 0 0 rgba(255,84,104,0); } 50% { box-shadow: inset 0 0 120px 10px rgba(255,84,104,.35); } }
+.alarm-on { animation: alarmPulse 1.2s ease-in-out infinite; }
+
+/* toasts for Level 1 prompts and short messages */
+#toasts { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 50; width: min(560px, calc(100% - 32px)); pointer-events: none; }
+.toast { pointer-events: auto; padding: 12px 16px; border-radius: 14px; background: rgba(8,38,66,.92); border: 1px solid rgba(0,212,255,.45); color: #EAF6FF; font-size: 15px; line-height: 1.4; box-shadow: 0 10px 30px rgba(0,0,0,.45); backdrop-filter: blur(6px); }
+.toast.watch { background: rgba(40,28,8,.92); border-color: #FFB547; color: #FFE7C2; }
+.toast.bad { background: rgba(60,8,20,.92); border-color: #FF5468; color: #FFE3E7; }
+
+.prototype-note { margin: 0; padding: 10px 16px 14px; text-align: center; font-size: 12px; color: rgba(184,212,230,.6); background: #030B17; }
+
+/* Exercise ECG: on narrow screens the big heart-rate number leaves no room at the sides, so one full-width strip runs below it */
+@media (max-width: 640px) {
+  .ecg-row { flex-wrap: wrap; }
+  .ecg-strip[data-ecg="l"] { display: none !important; }
+  .ecg-strip[data-ecg="r"] { order: 3; flex: 1 1 100% !important; margin: 4px 16px 0; }
+}
+
+/* Simulation body map: clickable organs */
+.organ-spot, .organ-spot > * { pointer-events: all; cursor: pointer; fill: rgba(0,0,0,0); stroke: transparent; stroke-width: 3; transition: fill .15s, stroke .15s; outline: none; }
+.organ-spot.hint > * { stroke: rgba(0,212,255,.55); stroke-dasharray: 6 5; fill: rgba(0,212,255,.08); }
+.organ-spot:hover, .organ-spot:focus-visible, .organ-spot:hover > *, .organ-spot:focus-visible > * { fill: rgba(0,212,255,.22); stroke: #00D4FF; stroke-dasharray: none; }
